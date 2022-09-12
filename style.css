@@ -1,21 +1,87 @@
+body
+{
+    background-color: rgb(250, 242, 232);
+    font-family: 'Antonio', sans-serif;
+}
+
 #game-table {
     margin: auto;
+    padding: 10px;
+    background: #2DADFF;
+    background: -moz-linear-gradient(top, #2DADFF 0%, #003FFF 100%);
+    background: -webkit-linear-gradient(top, #2DADFF 0%, #003FFF 100%);
+    background: linear-gradient(to bottom, #2DADFF 0%, #003FFF 100%);
+    border-collapse: separate;
+    border-spacing: 20px 10px;
 }
 
 #game-table .game-cell {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 2px 2px 11px 0px #000000; 
+    box-shadow: inset 2px 2px 11px 0px #000000;
     text-align: center;
 }
 
 .game-cell.cell-empty {
-    background-color: gray;
+    background-color: rgb(196, 192, 187);
+    box-shadow: inset;
+    cursor: pointer;
 }
 
 .game-cell.cell-red {
-    background-color: red;
+    background-color: rgb(197, 0, 0);
 }
 
 .game-cell.cell-yellow {
-    background-color: yellow;
+    background-color: rgb(255, 187, 0);
+}
+
+header {
+    text-align: center;
+}
+
+#nnnn {
+    color: rgb(197, 0, 0);
+}
+
+#buttons-div {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* CSS */
+.button-39 {
+  background-color: #FFFFFF;
+  border: 1px solid rgb(209,213,219);
+  border-radius: .5rem;
+  box-sizing: border-box;
+  color: #111827;
+  font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: .75rem 1rem;
+  text-align: center;
+  text-decoration: none #D1D5DB solid;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-39:hover {
+  background-color: rgb(249,250,251);
+}
+
+.button-39:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.button-39:focus-visible {
+  box-shadow: none;
 }

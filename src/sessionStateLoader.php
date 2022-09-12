@@ -3,51 +3,58 @@ require_once('gameStateLoader.php');
 session_start();
 
 
-class SessionStateLoader extends GameStateLoader {
+class SessionStateLoader extends GameStateLoader
+{
     private const RED_CHAR = "R";
     private const YELLOW_CHAR = "Y";
     private const EMPTY_CHAR = "S";
-    private const ROW_BREAK_CHAR = "|";
+    private const COLUMN_DELIMITER = "|";
 
+    /**
+     * Stores cells session, such as SSSSRY|SSSSYY|....
+     */
     public function SaveCells(Map $map)
     {
         $chars = "";
-        for ($y=0; $y < Map::MAP_HEIGHT; $y++) { 
-            for ($x=0; $x < Map::MAP_WIDTH; $x++) {
-                if($map->GetCell($x, $y) == CellValue::Red) 
+        for ($col = 0; $col < Map::MAP_WIDTH; $col++) {
+            for ($row = 0; $row < Map::MAP_HEIGHT; $row++) {
+                if ($map->GetCell($col, $row) == CellValue::Red)
                     $chars .= self::RED_CHAR;
-                elseif($map->GetCell($x, $y) == CellValue::Yellow) 
+                elseif ($map->GetCell($col, $row) == CellValue::Yellow)
                     $chars .= self::YELLOW_CHAR;
-                elseif($map->GetCell($x, $y) == CellValue::Empty) 
+                elseif ($map->GetCell($col, $row) == CellValue::Empty)
                     $chars .= self::EMPTY_CHAR;
                 else
                     throw new Error("Undefined cell cannot be saved");
             }
 
-            if($y != Map::MAP_HEIGHT - 1)
-                $chars .= self::ROW_BREAK_CHAR;
+            if ($col != Map::MAP_WIDTH - 1)
+                $chars .= self::COLUMN_DELIMITER;
         }
         $_SESSION['cells'] = $chars;
     }
 
+    /**
+     * Loads cells from session.
+     */
     public function LoadCells()
     {
-        if(empty($_SESSION['cells']))
+        if (empty($_SESSION['cells']))
             return FALSE;
 
-        $lines = explode(self::ROW_BREAK_CHAR, $_SESSION['cells']);
+        $columnStrings = explode(self::COLUMN_DELIMITER, $_SESSION['cells']);
 
-        for ($y=0; $y < sizeof($lines); $y++) { 
-            $cells[$y] = [];
-            for ($x=0; $x < Map::MAP_WIDTH; $x++) {
-                if($lines[$y][$x] == self::RED_CHAR) 
-                    $cells[$y][$x] = CellValue::Red;
+        for ($col = 0; $col < sizeof($columnStrings); $col++) {
+            $cells[$col] = [];
+            for ($row = 0; $row < strlen($columnStrings[$col]); $row++) {
+                if ($columnStrings[$col][$row] == self::RED_CHAR)
+                    $cells[$col][$row] = CellValue::Red;
 
-                if($lines[$y][$x] == self::YELLOW_CHAR) 
-                    $cells[$y][$x] = CellValue::Yellow;
+                if ($columnStrings[$col][$row] == self::YELLOW_CHAR)
+                    $cells[$col][$row] = CellValue::Yellow;
 
-                if($lines[$y][$x] == self::EMPTY_CHAR) 
-                    $cells[$y][$x] = CellValue::Empty;
+                if ($columnStrings[$col][$row] == self::EMPTY_CHAR)
+                    $cells[$col][$row] = CellValue::Empty;
             }
         }
 

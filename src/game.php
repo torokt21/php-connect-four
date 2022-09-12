@@ -20,10 +20,14 @@ class Game
     public $Map;
     private $loader;
 
-    function __construct(GameStateLoader $loader) {
+    function __construct(GameStateLoader $loader)
+    {
         $this->Map = new Map();
         $this->loader = $loader;
-        $this->Map->SetCells = $this->loader->LoadCells();
+
+        if ($cells = $this->loader->LoadCells())
+            $this->Map->SetCells($cells);
+        else ($this->Map->Clear());
     }
 
     function Restart()
@@ -33,24 +37,26 @@ class Game
         $this->loader->SaveCells($this->Map);
     }
 
-    function MakeMove(Player $player, int $column) {
+    function MakeMove(Player $player, int $column)
+    {
         // Column full
-        if($this->Map->GetCell($column, 0) !== CellValue::Empty)
+        if ($this->Map->GetCell($column, 0) !== CellValue::Empty)
             return FALSE;
-        
-        if($player == Player::Red)
+
+        if ($player == Player::Red)
             $cellVal = CellValue::Red;
 
-        if($player == Player::Yellow)
+        if ($player == Player::Yellow)
             $cellVal = CellValue::Yellow;
 
-        for ($y=0; $y < Map::MAP_HEIGHT; $y++) { 
-            if(($y == Map::MAP_HEIGHT - 1 && $this->Map->GetCell($column, $y + 1) == CellValue::Empty) || $this->Map->GetCell($column, $y + 1) != CellValue::Empty)
-            {
-                $this->Map->SetCell($column, $y, $cellVal);
-            }
+        $topEmptyCell = $this->Map->GetTopEmptyCell($column);
+
+        if ($topEmptyCell !== FALSE) {
+            $this->Map->SetCell($column, $topEmptyCell, $cellVal);
+            $this->loader->SaveCells($this->Map);
+            return TRUE;
         }
 
-        $this->loader->SaveCells($this->Map);
+        return FALSE;
     }
 }
