@@ -34,7 +34,7 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connect four</title>
+    <title>Connnnect four</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,53 +42,52 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
 </head>
 
 <body>
-    <div>
-        <header>
-            <h1>Co<span id="nnnn">nnnn</span>ect Four</h1>
-        </header>
 
-        <main>
-            <form method="POST" id="game-form">
-                <input id="column-input" name="column" type="hidden" value="" />
-                <table id="game-table">
-                    <?php
-                    for ($row = 0; $row < Map::MAP_HEIGHT; $row++) {
-                        echo "<tr>";
-                        for ($col = 0; $col < Map::MAP_WIDTH; $col++) {
-                            $cellValue = $game->Map->GetCell($col, $row);
+    <header>
+        <h1>Co<span id="nnnn">nnnn</span>ect Four</h1>
+    </header>
 
-                            switch ($cellValue) {
-                                case CellValue::Empty:
-                                    $cellClass = "cell-empty";
-                                    break;
-                                case CellValue::Red:
-                                    $cellClass = "cell-red";
-                                    break;
-                                case CellValue::Yellow:
-                                    $cellClass = "cell-yellow";
-                                    break;
-                            }
+    <main>
+        <form method="POST" id="game-form">
+            <input id="column-input" name="column" type="hidden" value="" />
+            <table id="game-table">
+                <?php
+                for ($row = 0; $row < Map::MAP_HEIGHT; $row++) {
+                    echo "<tr>";
+                    for ($col = 0; $col < Map::MAP_WIDTH; $col++) {
+                        $cellValue = $game->Map->GetCell($col, $row);
 
-                    ?>
-                    <td onclick="submitForm(<?php echo $col ?>)" class="game-cell <?php echo $cellClass ?>">
-                        <?php echo DEBUG ? "{$col}-{$row}" : "" ?>
-                    </td>
-                    <?php
+                        switch ($cellValue) {
+                            case CellValue::Empty:
+                                $cellClass = "cell-empty";
+                                break;
+                            case CellValue::Red:
+                                $cellClass = "cell-red";
+                                break;
+                            case CellValue::Yellow:
+                                $cellClass = "cell-yellow";
+                                break;
                         }
-                        echo "</tr>";
+
+                ?>
+                <td onclick="submitForm(<?php echo $col ?>)" class="game-cell <?php echo $cellClass ?>">
+                    <?php echo DEBUG ? "{$col}-{$row}" : "" ?>
+                </td>
+                <?php
                     }
+                    echo "</tr>";
+                }
 
-                    ?>
-                </table>
+                ?>
+            </table>
+        </form>
+
+        <div id="buttons-div">
+            <form method="POST">
+                <input class="button-39" name="restart" type="submit" value="Restart" />
             </form>
-
-            <div id="buttons-div">
-                <form>
-                    <input class="button-39" name="restart" type="submit" value="Restart" />
-                </form>
-            </div>
-        </main>
-    </div>
+        </div>
+    </main>
 </body>
 
 <script>
