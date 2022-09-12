@@ -1,0 +1,21 @@
+#game-table {
+    margin: auto;
+}
+
+#game-table .game-cell {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+}
+
+.game-cell.cell-empty {
+    background-color: gray;
+}
+
+.game-cell.cell-red {
+    background-color: red;
+}
+
+.game-cell.cell-yellow {
+    background-color: yellow;
+}
