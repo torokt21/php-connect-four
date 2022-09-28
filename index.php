@@ -45,6 +45,10 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
 
     <header>
         <h1>Co<span id="nnnn">nnnn</span>ect Four</h1>
+        <?php
+        if ($winner = $game->CheckForWinner()) {
+            echo ($winner === Player::Red ? "RED" : "YELLOW") . " WINS";
+        } ?>
     </header>
 
     <main>
