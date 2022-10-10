@@ -52,7 +52,7 @@ $winner = $game->CheckForWinner();
         <?php if ($winner) : ?>
         <div id="winner-box">
             <?php
-                $class = $winner === Player::Red ? "red-text" : "yellow-text";
+                $class = $winner === Player::Red ? "red-player-text" : "yellow-player-text";
                 $playerTxt = $winner === Player::Red ? "RED" : "YELLOW";
                 ?>
             <?php
