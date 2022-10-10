@@ -16,6 +16,12 @@ body
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    
+}
+
+#game-table.game-over
+{
+    opacity: 0.6;
 }
 
 #game-table .game-cell {
@@ -31,6 +37,11 @@ body
 .game-cell.cell-empty {
     background-color: rgb(196, 192, 187);
     box-shadow: inset;
+    
+}
+
+#game-table:not(.game-over) .game-cell
+{
     cursor: pointer;
 }
 
@@ -46,13 +57,24 @@ header {
     text-align: center;
 }
 
-#nnnn {
-    color: rgb(197, 0, 0);
-}
-
 #buttons-div {
     text-align: center;
     margin-top: 20px;
+}
+
+#winner-box
+{
+    font-size:72px;
+}
+
+.red-player-text
+{
+    color: rgb(197, 0, 0);
+}
+
+.yellow-player-text
+{
+    color: rgb(255, 187, 0);
 }
 
 /* CSS */

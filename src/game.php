@@ -19,6 +19,7 @@ class Game
 {
     public $Map;
     private $loader;
+    public $gameOver;
 
     function __construct(GameStateLoader $loader)
     {
@@ -34,11 +35,15 @@ class Game
     {
         $this->Map->Clear();
 
+        $this->gameOver = FALSE;
         $this->loader->SaveCells($this->Map);
     }
 
     function MakeMove(Player $player, int $column)
     {
+        if ($this->gameOver)
+            return;
+
         // Column full
         if ($this->Map->GetCell($column, 0) !== CellValue::Empty)
             return FALSE;
@@ -68,6 +73,7 @@ class Game
                     for ($rowDir = -1; $rowDir <= 1; $rowDir++) {
                         $cell = $this->Map->GetCell($col, $row);
                         if ($this->CheckWinnerRecursive($col, $row, $colDir, $rowDir, $cell, 0)) {
+                            $this->gameOver = TRUE;
                             return $cell == CellValue::Red ? Player::Red : Player::Yellow;
                         }
                     }

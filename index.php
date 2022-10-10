@@ -6,7 +6,6 @@ const DEBUG = FALSE;
 
 $loader = new sessionStateLoader();
 $game = new Game($loader);
-
 $player = Player::Red;
 $bot = Player::Yellow;
 
@@ -14,6 +13,7 @@ $bot = Player::Yellow;
 if (isset($_REQUEST['restart']))
     $game->Restart();
 
+$game->CheckForWinner();
 if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
     if ($game->MakeMove($player, number_format($_REQUEST['column']))) {
         // Successfull move
@@ -25,6 +25,8 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
         header('Location: ' . $_SERVER['PHP_SELF']);
     }
 }
+
+$winner = $game->CheckForWinner();
 ?>
 
 <!DOCTYPE html>
@@ -44,17 +46,26 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
 <body>
 
     <header>
-        <h1>Co<span id="nnnn">nnnn</span>ect Four</h1>
-        <?php
-        if ($winner = $game->CheckForWinner()) {
-            echo ($winner === Player::Red ? "RED" : "YELLOW") . " WINS";
-        } ?>
+        <h1>Co<span class="<?php echo rand(0, 1) === 0 ? "red-player-text" : "yellow-player-text" ?>">nnnn</span>ect
+            Four
+        </h1>
+        <? if ($winner) : ?>
+        <div id="winner-box">
+            <?php
+                $class = $winner === Player::Red ? "red-text" : "yellow-text";
+                $playerTxt = $winner === Player::Red ? "RED" : "YELLOW";
+                ?>
+            <?php
+                echo "<span class='{$class}'>{$playerTxt}</span> WINS";
+                ?>
+        </div>
+        <?php endif; ?>
     </header>
 
     <main>
         <form method="POST" id="game-form">
             <input id="column-input" name="column" type="hidden" value="" />
-            <table id="game-table">
+            <table id="game-table" class="<?php echo $game->gameOver ? "game-over" : "" ?>">
                 <?php
                 for ($row = 0; $row < Map::MAP_HEIGHT; $row++) {
                     echo "<tr>";
