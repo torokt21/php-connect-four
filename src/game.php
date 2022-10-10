@@ -71,6 +71,9 @@ class Game
             for ($row = $this->Map->GetTopEmptyCell($col) + 1; $row < Map::MAP_HEIGHT; $row++) {
                 for ($colDir = -1; $colDir <= 1; $colDir++) {
                     for ($rowDir = -1; $rowDir <= 1; $rowDir++) {
+                        if ($rowDir === 0 && $colDir === 0)
+                            continue;
+
                         $cell = $this->Map->GetCell($col, $row);
                         if ($this->CheckWinnerRecursive($col, $row, $colDir, $rowDir, $cell, 0)) {
                             $this->gameOver = TRUE;
@@ -98,9 +101,7 @@ class Game
             if ($nextCol < 0 || $nextCol >= Map::MAP_WIDTH || $nextRow < 0 || $nextRow >= Map::MAP_HEIGHT)
                 return FALSE;
 
-            // Continue
-            if ($dirCol == 0 xor $dirRow == 0)
-                return $this->CheckWinnerRecursive($nextCol, $nextRow, $dirCol, $dirRow, $player, $count);
+            return $this->CheckWinnerRecursive($nextCol, $nextRow, $dirCol, $dirRow, $player, $count);
         } else {
             return FALSE;
         }
