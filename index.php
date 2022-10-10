@@ -49,7 +49,7 @@ $winner = $game->CheckForWinner();
         <h1>Co<span class="<?php echo rand(0, 1) === 0 ? "red-player-text" : "yellow-player-text" ?>">nnnn</span>ect
             Four
         </h1>
-        <? if ($winner) : ?>
+        <?php if ($winner) : ?>
         <div id="winner-box">
             <?php
                 $class = $winner === Player::Red ? "red-text" : "yellow-text";
