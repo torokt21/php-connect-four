@@ -2,17 +2,17 @@
 require_once("map.php");
 require_once("gameStateLoader.php");
 
-enum CellValue
+class CellValue
 {
-    case Red;
-    case Yellow;
-    case Empty;
+    const Red = "RED";
+    const Yellow = "YELLOW";
+    const Empty = "EMPTY";
 }
 
-enum Player
+class Player
 {
-    case Red;
-    case Yellow;
+    const Red = "RED";
+    const Yellow = "YELLOW";
 }
 
 class Game
@@ -39,7 +39,7 @@ class Game
         $this->loader->SaveCells($this->Map);
     }
 
-    function MakeMove(Player $player, int $column)
+    function MakeMove(string $player, int $column)
     {
         if ($this->gameOver)
             return;
@@ -87,7 +87,7 @@ class Game
         return FALSE;
     }
 
-    private function CheckWinnerRecursive(int $col, int $row, int $dirCol, int $dirRow, CellValue $player, int $count)
+    private function CheckWinnerRecursive(int $col, int $row, int $dirCol, int $dirRow, string $player, int $count)
     {
         $currentCell = $this->Map->GetCell($col, $row);
         if ($currentCell !== CellValue::Empty && $currentCell === $player) {

@@ -60,4 +60,42 @@ class SessionStateLoader extends GameStateLoader
 
         return $cells;
     }
+
+    public function SaveMove(string $player, int $column)
+    {
+        if (!isset($_SESSION['moves'])) {
+            $_SESSION['moves'] = [];
+        }
+        $id = new stdClass();
+        $id->player = $player;
+        $id->column = $column;
+        $_SESSION['moves'][] = $id;
+    }
+
+    public function LoadMoves()
+    {
+        if (!isset($_SESSION['moves'])) {
+            $_SESSION['moves'] = [];
+        }
+
+        return $_SESSION['moves'];
+    }
+
+    public function SaveWinner(string $player)
+    {
+        if (!isset($_SESSION['winners'])) {
+            $_SESSION['winners'] = [];
+        }
+
+        $_SESSION['winners'][] = $player;
+    }
+
+    public function LoadWinners()
+    {
+        if (!isset($_SESSION['winners'])) {
+            $_SESSION['winners'] = [];
+        }
+
+        return $_SESSION['winners'];
+    }
 }

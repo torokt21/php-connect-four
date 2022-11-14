@@ -102,6 +102,10 @@ $winner = $game->CheckForWinner();
                 <input class="button-39" name="restart" type="submit" value="Restart" />
             </form>
         </div>
+
+        <div>
+            <span>Past wins</span>
+        </div>
     </main>
 </body>
 

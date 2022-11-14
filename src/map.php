@@ -27,7 +27,7 @@ class Map
     }
 
     /** Sets the specified cell value. */
-    public function SetCell(int $column, int $row, CellValue $cellValue)
+    public function SetCell(int $column, int $row, string $cellValue)
     {
         $this->cells[$column][$row] = $cellValue;
     }
