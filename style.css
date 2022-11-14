@@ -40,6 +40,30 @@ body
     
 }
 
+.container {
+    max-width: 600px;
+    margin: auto;
+    white-space: nowrap;
+    
+}
+
+.half-container {
+    width: 50%;
+    display: inline-block;
+    white-space: normal;
+    list-style-position: inside;
+    vertical-align: top;
+}
+
+ol {
+    padding: 0;
+}
+
+.text-right
+{
+    text-align: right;
+}
+
 #game-table:not(.game-over) .game-cell
 {
     cursor: pointer;
@@ -64,7 +88,7 @@ header {
 
 #winner-box
 {
-    font-size:72px;
+    font-size: 72px;
 }
 
 .red-player-text
@@ -77,7 +101,6 @@ header {
     color: rgb(255, 187, 0);
 }
 
-/* CSS */
 .button-39 {
   background-color: #FFFFFF;
   border: 1px solid rgb(209,213,219);

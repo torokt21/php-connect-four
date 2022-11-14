@@ -36,6 +36,7 @@ class Game
         $this->Map->Clear();
 
         $this->gameOver = FALSE;
+        $this->loader->ResetMoves();
         $this->loader->SaveCells($this->Map);
     }
 
@@ -59,6 +60,7 @@ class Game
         if ($topEmptyCell !== FALSE) {
             $this->Map->SetCell($column, $topEmptyCell, $cellVal);
             $this->loader->SaveCells($this->Map);
+            $this->loader->SaveMove($player, $column);
             return TRUE;
         }
 

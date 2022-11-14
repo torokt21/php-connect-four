@@ -9,6 +9,8 @@ abstract class GameStateLoader
 
     abstract public function LoadMoves();
 
+    abstract public function ResetMoves();
+
     abstract public function SaveWinner(string $player);
 
     abstract public function LoadWinners();

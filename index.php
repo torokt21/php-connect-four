@@ -9,14 +9,14 @@ $game = new Game($loader);
 $player = Player::Red;
 $bot = Player::Yellow;
 
-
 if (isset($_REQUEST['restart']))
     $game->Restart();
 
-$game->CheckForWinner();
+$old_winner = $game->CheckForWinner();
+
 if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
     if ($game->MakeMove($player, number_format($_REQUEST['column']))) {
-        // Successfull move
+        // Successfull move, bot's turn
         do {
             $success = $game->MakeMove($bot, rand(0, Map::MAP_WIDTH - 1));
         } while (!$success);
@@ -26,7 +26,13 @@ if (isset($_REQUEST['column']) && is_numeric($_REQUEST['column'])) {
     }
 }
 
-$winner = $game->CheckForWinner();
+if ($winner = $game->CheckForWinner()) {
+    if ($old_winner != $winner) {
+        $loader->SaveWinner($winner);
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -103,8 +109,46 @@ $winner = $game->CheckForWinner();
             </form>
         </div>
 
-        <div>
-            <span>Past wins</span>
+        <div class="container">
+            <div class="half-container">
+                <span>Past wins</span>
+                <div>
+                    <?php
+                    $pastWins = $loader->LoadWinners();
+                    if (sizeof($pastWins) === 0) : ?>
+                    <span>No games yet</span>
+                    <?php else : ?>
+                    <ol>
+                        <?php foreach ($pastWins as $pwinner) :
+                                $class = $pwinner === Player::Red ? "red-player-text" : "yellow-player-text";
+                                $playerTxt = $pwinner === Player::Red ? "RED" : "YELLOW";
+                            ?>
+                        <li><span class="<?php echo $class ?>"><?php echo $playerTxt ?></span></li>
+                        <?php endforeach; ?>
+                    </ol>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="half-container text-right">
+                <span>Moves</span>
+                <div>
+                    <?php
+                    $moves = $loader->LoadMoves();
+                    if (sizeof($moves) === 0) : ?>
+                    <span>No moves yet</span>
+                    <?php else : ?>
+                    <ol>
+                        <?php foreach ($moves as $mov) :
+                                $class = $mov->player === Player::Red ? "red-player-text" : "yellow-player-text";
+                                $playerTxt = $mov->player === Player::Red ? "RED" : "YELLOW";
+                            ?>
+                        <li><span class="<?php echo $class ?>"><?php echo $playerTxt  ?></span> - column
+                            <?php echo $mov->column + 1 ?></li>
+                        <?php endforeach; ?>
+                    </ol>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </main>
 </body>

@@ -81,6 +81,11 @@ class SessionStateLoader extends GameStateLoader
         return $_SESSION['moves'];
     }
 
+    public function ResetMoves()
+    {
+        $_SESSION['moves'] = [];
+    }
+
     public function SaveWinner(string $player)
     {
         if (!isset($_SESSION['winners'])) {
