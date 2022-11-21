@@ -1,6 +1,5 @@
 <?php
 require_once('gameStateLoader.php');
-session_start();
 
 
 class sqlStateLoader extends GameStateLoader
@@ -86,7 +85,7 @@ class sqlStateLoader extends GameStateLoader
     }
 
     /**
-     * Stores cells session, such as SSSSRY|SSSSYY|....
+     * Stores cells in db, such as SSSSRY|SSSSYY|....
      */
     public function SaveCells(Map $map)
     {
@@ -115,7 +114,7 @@ class sqlStateLoader extends GameStateLoader
     }
 
     /**
-     * Loads cells from session.
+     * Loads cells from db.
      */
     public function LoadCells()
     {
