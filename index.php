@@ -1,10 +1,10 @@
 <?php
 require("src/game.php");
-require("src/sessionStateLoader.php");
+require("src/sqlStateLoader.php");
 
 const DEBUG = FALSE;
 
-$loader = new sessionStateLoader();
+$loader = new sqlStateLoader();
 $game = new Game($loader);
 $player = Player::Red;
 $bot = Player::Yellow;
